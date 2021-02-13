@@ -1,16 +1,12 @@
 package cz.educanet.tranformations;
 
-import kotlin.NotImplementedError;
-
 import java.util.Arrays;
 
 public class Matrix implements IMatrix {
+    MatrixFactory mf = new MatrixFactory();
 
-    private final double[][] rawArray;
+    private final double[][] rawArray = new double[getRows()][getColumns()];
 
-    public Matrix(double[][] rawArray) {
-        this.rawArray = rawArray;
-    }
 
     @Override
     public int getRows() {
@@ -21,30 +17,52 @@ public class Matrix implements IMatrix {
     public int getColumns() {
         if (getRows() > 0)
             return rawArray[0].length;
-
-        return 0;
+            return 0;
     }
 
     @Override
     public IMatrix times(IMatrix matrix) {
-        throw new NotImplementedError(); // TODO:
+        double[][] temp = new double[getRows()][getColumns()];
+        for (int i = 0; i <= mf.width; i++) {
+            for (int j = 0; j <= mf.height; j++) {
+                temp[i][j] = mf.testMatrix1[j][i] * mf.testMatrix2[i][j];
+            }
+        }
+        IMatrix matice = MatrixFactory.create(temp);
+        return matice;
     }
 
     @Override
     public IMatrix times(Number scalar) {
-        throw new NotImplementedError(); // TODO:
+        double[][] temp = new double[getRows()][getColumns()];
+        for (int i = 0; i <= mf.width; i++) {
+            for (int j = 0; j <= mf.height; j++) {
+                temp[i][j] = mf.testMatrix1[i][j] * mf.scallarMultiplier;
+            }
+        }
+        IMatrix matice = MatrixFactory.create(temp);
+        return matice;
     }
 
     @Override
     public IMatrix add(IMatrix matrix) {
-        throw new NotImplementedError(); // TODO:
+        double[][] temp = new double[getRows()][getColumns()];
+        for (int i = 0; i <= mf.width; i++) {
+            for (int j = 0; j <= mf.height; j++) {
+                temp[i][j] = mf.testMatrix1[i][j] + mf.testMatrix2[i][j];
+            }
+        }
+        IMatrix matice = MatrixFactory.create(temp);
+        return matice;
     }
 
     @Override
     public double get(int n, int m) {
-        throw new NotImplementedError(); // TODO:
-    }
+        return 0;
+    } 
 
+
+    
     //region Optional
     @Override
     public IMatrix transpose() {
